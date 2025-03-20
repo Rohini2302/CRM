@@ -1,0 +1,126 @@
+/* Reset default margin and padding for the entire page */
+/* html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    overflow: hidden; Prevents scrolling on the entire page
+} */
+
+/* Main container for the table and filters */
+.table-container {
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content to the top */
+    align-items: center;
+    text-align: center;
+    padding: 20px; /* Adds padding around the table */
+    box-sizing: border-box; /* Ensures padding is included in width and height */
+}
+
+/* Container for search bar, name filter bar, and filter dropdown */
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 50px; /* Adds space between elements */
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Allows wrapping if screen size is small */
+}
+
+/* Search bar and name filter bar styling */
+.search-bar,
+.name-filter-bar {
+    flex: 1; /* Allows search and name filter bars to grow */
+    max-width: 200px; /* Limits the width of search and name filter bars */
+}
+
+.search-bar input,
+.name-filter-bar input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none; /* Removes the default focus outline */
+}
+
+.search-bar input::placeholder,
+.name-filter-bar input::placeholder {
+    color: #999;
+}
+
+/* Status filter dropdown styling */
+.filter-dropdown {
+    flex: 1; /* Allows the dropdown to grow */
+    max-width: 150px; /* Limits the width of the dropdown */
+}
+
+.filter-dropdown select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+    outline: none; /* Removes the default focus outline */
+}
+
+/* Scrollable table wrapper */
+.table-wrapper {
+    width: 100%;
+    max-height: 70vh; /* Adjust this value to control the table's height */
+    overflow-y: auto; /* Enables vertical scrolling */
+    border: 1px solid #ddd; /* Adds a border around the table */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    background-color: white; /* Adds background color to the table */
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Removes space between table cells */
+}
+
+/* Table header styling */
+th {
+    background-color: #424552;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 12px 15px; /* Adds padding to header cells */
+    position: sticky; /* Makes the header sticky */
+    top: 0; /* Sticks the header to the top of the container */
+    z-index: 1; /* Ensures the header stays above the table rows */
+}
+
+/* Table row and cell styling */
+td {
+    padding: 8px 10px; /* Compact padding for cells */
+    border: 1px solid #ddd;
+    text-align: center;
+    white-space: nowrap; /* Prevents text wrapping */
+    overflow: hidden; /* Hides overflow content */
+    text-overflow: ellipsis; /* Adds ellipsis for overflow text */
+    max-width: 150px; /* Limits cell width */
+    line-height: 1.5; /* Ensures consistent line height */
+}
+
+/* Alternate row background color */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect for table rows */
+tr:hover {
+    background-color: #ddd;
+}
+
+/* Fixed row height */
+tr {
+    height: 40px; /* Ensures consistent row height */
+}

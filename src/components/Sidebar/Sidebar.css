@@ -1,5 +1,5 @@
 /* Sidebar Default Styles */
-.sidebar {
+.sidebar1 {
     position: fixed;
     left: 0;
     top: 0;
@@ -11,17 +11,17 @@
     z-index: 1000;
   }
   
-  .sidebar ul {
+  .sidebar1 ul {
     list-style: none;
     padding: 0;
   }
   
-  .sidebar ul li {
+  .sidebar1 ul li {
     padding: 15px;
     text-align: left; /* Align text to the left */
   }
   
-  .sidebar ul li a {
+  .sidebar1 ul li a {
     color: white;
     text-decoration: none;
     font-size: 18px;
@@ -29,7 +29,7 @@
     transition: 0.3s;
   }
   
-  .sidebar ul li a:hover {
+  .sidebar1 ul li a:hover {
     background: #444;
   }
   
@@ -61,7 +61,7 @@
   }
   
 @media (max-width: 768px) {
-    .sidebar {
+    .sidebar1 {
       left: -100%; /* Hide sidebar fully on mobile */
     }
   

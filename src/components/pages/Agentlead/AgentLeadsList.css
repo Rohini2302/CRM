@@ -1,0 +1,134 @@
+.agent-leads-list {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    height: 100dvh;
+}
+
+/* Buttons */
+.back-btn, .reset-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.back-btn:hover, .reset-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Search & Filter Container */
+.search-filter-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    align-items: center;
+    
+}
+
+.filter-dropdown, .search-bar, .search-btn {
+    padding: 8px;
+    font-size: 14px;
+}
+
+.search-bar {
+    color: black;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+
+/* Search & Filter Buttons */
+.search-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.search-btn:hover {
+    background-color: #218838;
+}
+
+.search-filter-container input::placeholder {
+    color: black;
+}
+
+/* Table Styling */
+table {
+    width: 95vw;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    
+}
+
+th {
+    background-color: #f2f2f2;
+ 
+}
+
+/* 🔹 Mobile Responsive Design */
+@media (max-width: 768px) {
+    .search-filter-container {
+        flex-direction: column;
+        gap: 5px;
+        align-items: stretch; /* Make items full-width */
+    }
+
+    .filter-dropdown, .search-bar, .search-btn, .reset-btn {
+        width: 100%; /* Full width on mobile */
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}
+
+/* 🔹 Small Mobile Screens (up to 480px) */
+@media (max-width: 480px) {
+    .agent-leads-list {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .back-btn, .reset-btn {
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+
+    /* Make table scrollable on small screens */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}

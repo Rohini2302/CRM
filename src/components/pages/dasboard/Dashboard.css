@@ -1,0 +1,287 @@
+/* General Styles */
+/* body, html {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; Prevent horizontal scrolling
+} */
+
+/* Dashboard Container */
+.dashboard-container {
+    width: 100%;
+    min-height: 100vh;
+    background: white;
+    padding: 20px; /* Equal padding on all sides */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px; /* Reduced padding-top */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    margin-right: 2vh;
+}
+/* Header Section */
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px; /* Adjusted padding */
+    border-bottom: 2px solid #ddd;
+    margin-top: 0; /* Removed negative margin */
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.icon1 {
+    width: 40px;
+    height: 40px;
+    background: #ddd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+h2 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.dropdown select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Stats Grid */
+.stats-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 0 20px; /* Added padding */
+}
+
+/* Cards */
+.card {
+    background: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 5vh;
+}
+
+.card h3 {
+    font-size: 14px;
+    color: #000000;
+    margin: 0;
+}
+
+.card p {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 5px 0 0;
+}
+
+/* Task & Meeting Section */
+.task-meeting {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+    padding: 0 20px; /* Added padding */
+    margin-top: 5vh;
+}
+
+/* Task & Meeting Cards */
+.task-card, .meeting-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Increased box-shadow */
+    min-height: 250px;
+}
+
+.task-card h3, .meeting-card h3 {
+    font-size: 25px;
+    margin: 0;
+    color: #000000;
+}
+
+/* Empty State */
+.empty {
+    text-align: center;
+    padding: 20px;
+    color: #877e7ec1;
+    font-size: 15px;
+    margin-top: 5vh;
+}
+
+.empty img {
+    width: 60px;
+    opacity: 0.5;
+    margin-bottom: 10px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.menu-container {
+    position: relative;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.dropdown-menu ul li {
+    padding: 5px 10px; /* Adjusted padding for better spacing */
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 12px; /* Slightly larger font size */
+}
+
+.dropdown-menu ul li:hover {
+    background: #c4bfbf;
+}
+
+/* Responsive Design */
+/* Small devices (phones, 320px and up) */
+@media (min-width: 320px) {
+    .stats-grid {
+        grid-template-columns: repeat(1, 1fr); /* 1 column for small phones */
+    }
+
+    .task-meeting {
+        grid-template-columns: repeat(1, 1fr); /* 1 column for small phones */
+    }
+
+    .header {
+        margin-top: 0; /* Removed margin for small devices */
+    }
+
+    .card h3 {
+        font-size: 12px; /* Smaller font size for small devices */
+    }
+
+    .card p {
+        font-size: 18px; /* Smaller font size for small devices */
+    }
+
+    .task-card h3, .meeting-card h3 {
+        font-size: 20px; /* Smaller font size for small devices */
+    }
+}
+
+/* Medium devices (tablets, 600px and up) */
+@media (min-width: 600px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+    }
+
+    .task-meeting {
+        grid-template-columns: repeat(1, 1fr); /* 1 column for tablets */
+    }
+
+    .header {
+        margin-top: 0; /* Removed margin for medium devices */
+    }
+
+    .card h3 {
+        font-size: 14px; /* Medium font size for tablets */
+    }
+
+    .card p {
+        font-size: 20px; /* Medium font size for tablets */
+    }
+
+    .task-card h3, .meeting-card h3 {
+        font-size: 22px; /* Medium font size for tablets */
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns for desktops */
+    }
+
+    .task-meeting {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for desktops */
+    }
+
+    .header {
+        margin-top: 0; /* Removed margin for large devices */
+    }
+
+    .card h3 {
+        font-size: 16px; /* Larger font size for desktops */
+    }
+
+    .card p {
+        font-size: 24px; /* Larger font size for desktops */
+    }
+
+    .task-card h3, .meeting-card h3 {
+        font-size: 25px; /* Larger font size for desktops */
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns for large desktops */
+    }
+
+    .task-meeting {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for large desktops */
+    }
+
+    .header {
+        margin-top: 0; /* Removed margin for extra large devices */
+    }
+
+    .card h3 {
+        font-size: 18px; /* Extra large font size for large desktops */
+    }
+
+    .card p {
+        font-size: 26px; /* Extra large font size for large desktops */
+    }
+
+    .task-card h3, .meeting-card h3 {
+        font-size: 28px; /* Extra large font size for large desktops */
+    }
+}

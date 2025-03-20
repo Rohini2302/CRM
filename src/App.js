@@ -7,6 +7,11 @@ import Leads from "./components/pages/dasboard/leads/Leads";
 import Reports from "./components/pages/reports/report";
 import Settings from "./components/pages/settings/settings";
 import "./App.css";
+import AgentLeadsList from "./components/pages/Agentlead/AgentLeadsList";
+import Showlead from "./components/pages/Showlead/Showlead";
+import FormSelector from "./components/pages/dasboard/leads/FormSelector";
+import FormBuilder from "./components/pages/dasboard/leads/FormBuilder";
+import AgentLeadForm from "./components/pages/AgentForm/AgentLeadForm";
 
 const App = () => {
   return (
@@ -18,8 +23,13 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/leads" element={<Leads />} />
-            <Route path="/reports" element={<Reports />} />
+            <Route path="/Showlead" element={<Showlead/>} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/AgentLead" element={<AgentLeadsList/>}/>
+            <Route path="/Agentform" element={<AgentLeadForm/>}/>
+            <Route path="/form-selector" element={<FormSelector />} />
+        <Route path="/form-builder" element={<FormBuilder />} />
+        
           </Routes>
         </div>
       </div>

@@ -4,12 +4,15 @@ import "./Sidebar.css";
 
 const Sidebar = () => {
   return (
-    <div className="sidebar">
+    <div className="sidebar1">
       <ul>
         <li><Link to="/">📊 Dashboard</Link></li>
-        <li><Link to="/leads">📋 Leads</Link></li>
-        <li><Link to="/reports">📈 Reports</Link></li>
+        <li><Link to="/form-selector">📋 Leads</Link></li>
+        <li><Link to="/Showlead">📈 Show Lead</Link></li>
         <li><Link to="/settings">⚙️ Settings</Link></li>
+        <li><Link to="/AgentLead">🕵️‍♂️ AgentLead</Link></li>
+        <li><Link to="/Agentform">📝 Agent Form</Link></li>
+
       </ul>
     </div>
   );
