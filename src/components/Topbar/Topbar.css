@@ -1,0 +1,77 @@
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #222;
+    padding: 10px 20px;
+    color: white;
+  }
+  
+  .logo {
+    font-size: 24px;
+  }
+  
+  /* Search Field */
+  .search-container {
+    display: flex;
+    align-items: center;
+    background: #333;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .search-icon {
+    color: white;
+    margin-right: 5px;
+  }
+  
+  .search-input {
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    padding: 5px;
+  }
+  
+  .search-input::placeholder {
+    color: #ccc;
+  }
+  
+  /* Buttons & Profile Section */
+  .topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .icon-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .profile-icon {
+    font-size: 30px;
+  }
+  
+  .signout-btn {
+    background: red;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .signout-btn:hover {
+    background: darkred;
+  }
+  
