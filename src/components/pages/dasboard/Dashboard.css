@@ -1,15 +1,15 @@
 /* General Styles */
-/* body, html {
+body, html {
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; Prevent horizontal scrolling
-} */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
 
 /* Dashboard Container */
 .dashboard-container {
-    width: 100%;
+    width: 100vw;
     min-height: 100vh;
     background: white;
     padding: 20px; /* Equal padding on all sides */
@@ -67,6 +67,13 @@ h2 {
     gap: 15px;
     padding: 0 20px; /* Added padding */
 }
+.empty img {
+    width: 10px; /* Adjust size as needed */
+    height: 10px; 
+    margin-bottom: 10px;
+   
+    border-radius: 8px; /* Optional: Adds rounded corners */
+}
 
 /* Cards */
 .card {
@@ -80,7 +87,7 @@ h2 {
 
 .card h3 {
     font-size: 14px;
-    color: #000000;
+    color: #4b4949;
     margin: 0;
 }
 

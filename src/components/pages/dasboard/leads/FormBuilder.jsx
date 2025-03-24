@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./FormBuilder.css";
-import { Trash, Eye,  User, Home, Phone, Mail, FileText, Hash, DollarSign, FunctionSquare,  Upload ,Menu,ArrowLeft} from "lucide-react";
+import { Trash, Eye, Search, User, Home, Phone, Mail, FileText, Hash, DollarSign, FunctionSquare, CheckSquare, Radio, Image, Upload, Menu} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 
 const fieldOptions = [
   { type: "name", label: "Name", fields: ["First Name", "Last Name"], icon: <User size={24} /> },
@@ -35,9 +37,8 @@ export default function FormBuilder() {
   const [searchTerm, setSearchTerm] = useState("");
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [fieldToDelete, setFieldToDelete] = useState(null);
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const navigate = useNavigate(); // Define navigate before using it
-
 
   const addField = (type) => {
     const field = [...fieldOptions, ...textOptions, ...numberOptions, ...choiceOptions].find((f) => f.type === type);
@@ -81,16 +82,33 @@ export default function FormBuilder() {
   const filteredOptions = (options) => {
     return options.filter(option => option.label.toLowerCase().includes(searchTerm.toLowerCase()));
   };
+  const openFormPage = () => {
+    const storedForms = JSON.parse(localStorage.getItem("previewForms")) || [];
+  
+    const newForm = {
+      id: Date.now(), // Unique ID for each form
+      formTitle,
+      formFields,
+    };
+  
+    const updatedForms = [...storedForms, newForm]; // Append the new form
+    localStorage.setItem("previewForms", JSON.stringify(updatedForms));
+  
+    navigate("/preview-form");
+  };
+  
 
 
+  
   return (
     <div className="container1">
        
-     <button className="hamburger" onClick={() => setSidebarOpen(!sidebarOpen)}>
+       <button className="hamburger" onClick={() => setSidebarOpen(!sidebarOpen)}>
         <Menu size={24} />
       </button>
-      
+
       <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+
         {/* <div className="search-container">
           <Search className="search-icon" size={16} />
           <input 
@@ -101,10 +119,6 @@ export default function FormBuilder() {
               onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div> */}
-        <button className="back-button" onClick={() => navigate("/")}>
-        <ArrowLeft size={24} /> Back
-      </button>
-     
 
         <h2>Basic Info</h2>
         <div className="sidebar-buttons">
@@ -184,15 +198,13 @@ export default function FormBuilder() {
                   </div>
                 ))
               )}
-              
-
             </div>
           ))}
         </div>
 
         <button className="access-form-button" onClick={() => setPreview(true)}>
-          <Eye className="icon" size={16} /> Preview Form
-        </button>
+        <Eye className="icon" size={16} /> Preview Form
+      </button>
       </div>
 
       {preview && (
@@ -205,21 +217,24 @@ export default function FormBuilder() {
                 {field.type === "multiLine" ? (
                   <textarea className="textarea-field" placeholder="Enter text here..."></textarea>
                 ) : field.type === "imagePicker" ? (
-                  <div className="image-picker">
-                    <input type="file" accept="image/*" />
-                  </div>
-                ) : field.subFields.map((subField, index) => (
-                  <input key={index} placeholder={subField} className="input-field" />
-                ))}
+                  <input type="file" accept="image/*" />
+                ) : (
+                  field.subFields.map((subField, index) => (
+                    <input key={index} placeholder={subField} className="input-field" />
+                  ))
+                )}
               </div>
             ))}
             <div className="button-container">
-              <button className="submit-button">Submit</button>
+              <button className="submit-button" onClick={openFormPage}>Submit</button>
               <button className="close-button" onClick={() => setPreview(false)}>Close</button>
             </div>
           </div>
         </div>
       )}
+    
+
+
 
       {showDeleteConfirmation && (
         <div className="modal-overlay">

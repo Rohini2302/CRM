@@ -1,134 +1,155 @@
+/* Full-Screen Layout */
 .agent-leads-list {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    width: 100%;
-    height: 100dvh;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent any overflow from the container */
 }
 
-/* Buttons */
-.back-btn, .reset-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+/* Sticky Header */
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  background: white;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
 }
 
-.back-btn:hover, .reset-btn:hover {
-    background-color: #0056b3;
-}
-
-/* Search & Filter Container */
+/* Sticky Search & Filter Controls */
 .search-filter-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-    align-items: center;
-    
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 50px; /* Below the title */
+  z-index: 99;
+  width: 100%;
 }
 
-.filter-dropdown, .search-bar, .search-btn {
-    padding: 8px;
-    font-size: 14px;
+.filter-dropdown, .search-bar, .search-btn, .reset-btn {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.search-bar {
-    color: black;
-    border: 1px solid #ccc;
-    width: 200px;
+.search-btn, .reset-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
 }
 
-/* Search & Filter Buttons */
-.search-btn {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 5px;
+.search-btn:hover, .reset-btn:hover {
+  background-color: #218838;
 }
 
-.search-btn:hover {
-    background-color: #218838;
+.reset-btn {
+  background-color: #dc3545;
 }
 
-.search-filter-container input::placeholder {
-    color: black;
+.reset-btn:hover {
+  background-color: #c82333;
 }
 
-/* Table Styling */
+/* Scrollable Table */
+.table-wrapper {
+  flex-grow: 1;
+  overflow-y: hidden; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Enable horizontal scrolling */
+  background: white;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+/* Table */
 table {
-    width: 95vw;
-    border-collapse: collapse;
-    margin-top: 10px;
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-    
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  font-size: 16px;
+  white-space: nowrap;
 }
 
 th {
-    background-color: #f2f2f2;
- 
+  background-color: #2c3e50;
+  color: white;
+  position: sticky;
+  top: 100px; /* Below search bar */
+  z-index: 98;
 }
 
-/* 🔹 Mobile Responsive Design */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #d7e3fc;
+}
+
+/* Responsive Design for Mobile */
 @media (max-width: 768px) {
-    .search-filter-container {
-        flex-direction: column;
-        gap: 5px;
-        align-items: stretch; /* Make items full-width */
-    }
+  .agent-leads-list {
+    padding: 10px;
+  }
 
-    .filter-dropdown, .search-bar, .search-btn, .reset-btn {
-        width: 100%; /* Full width on mobile */
-        padding: 10px;
-        font-size: 16px;
-    }
+  h2 {
+    font-size: 18px;
+  }
 
-    table {
-        font-size: 14px;
-    }
+  .search-filter-container {
+    top: 45px;
+    padding: 8px;
+  }
 
-    th, td {
-        padding: 8px;
-    }
+  .table-wrapper {
+    max-height: calc(100vh - 150px);
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+
+  table {
+    min-width: 700px;
+  }
+
+  th, td {
+    font-size: 14px;
+    padding: 8px;
+  }
 }
 
-/* 🔹 Small Mobile Screens (up to 480px) */
 @media (max-width: 480px) {
-    .agent-leads-list {
-        padding: 10px;
-    }
+  h2 {
+    font-size: 16px;
+  }
 
-    h2 {
-        font-size: 18px;
-        text-align: center;
-    }
+  .table-wrapper {
+    max-height: calc(100vh - 140px);
+  }
 
-    .back-btn, .reset-btn {
-        font-size: 14px;
-        padding: 6px 10px;
-    }
+  table {
+    min-width: 600px;
+  }
 
-    table {
-        font-size: 12px;
-    }
-
-    th, td {
-        padding: 6px;
-    }
-
-    /* Make table scrollable on small screens */
-    table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+  th, td {
+    font-size: 12px;
+    padding: 6px;
+  }
 }

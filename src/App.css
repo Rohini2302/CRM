@@ -5,8 +5,8 @@
   box-sizing: border-box;
 }
 
-/* Main App Container */
-.app-container {
+/* Main App Container */ */
+ .app-container {
   display: flex;
   height: 100vh;
 }

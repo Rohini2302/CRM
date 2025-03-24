@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaHandshake, FaFolderOpen, FaPhoneAlt, FaChartLine } from "react-icons/fa";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -10,7 +11,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard-container">
+    <div className="dashboard">
       {/* Header Section */}
       <div className="header">
         <div className="profile">
@@ -19,19 +20,35 @@ const Dashboard = () => {
         </div>
         <div className="dropdown">
           <select>
-            <option> Home</option>
-            <option> Classic View</option>
-            <option> Manage Home</option>
+            <option>Home</option>
+            <option>Classic View</option>
+            <option>Manage Home</option>
           </select>
         </div>
       </div>
 
-      {/* Stats Grid */}
+      {/* Stats Grid with Icons */}
       <div className="stats-grid">
-        <div className="card"><h3>My Open Deals</h3><p>0</p></div>
-        <div className="card"><h3>My Untouched Deals</h3><p>0</p></div>
-        <div className="card"><h3>My Calls Today</h3><p>0</p></div>
-        <div className="card"><h3>My Leads</h3><p>0</p></div>
+        <div className="card">
+          <FaHandshake size={24} style={{ marginBottom: "10px" }} />
+          <h3>My Open Deals</h3>
+          <p>0</p>
+        </div>
+        <div className="card">
+          <FaFolderOpen size={24} style={{ marginBottom: "10px" }} />
+          <h3>My Untouched Deals</h3>
+          <p>0</p>
+        </div>
+        <div className="card">
+          <FaPhoneAlt size={24} style={{ marginBottom: "10px" }} />
+          <h3>My Calls Today</h3>
+          <p>0</p>
+        </div>
+        <div className="card">
+          <FaChartLine size={24} style={{ marginBottom: "10px" }} />
+          <h3>My Leads</h3>
+          <p>0</p>
+        </div>
       </div>
 
       {/* Tasks & Meetings Section */}
@@ -53,13 +70,17 @@ const Dashboard = () => {
                     <ul>
                       <li>Edit</li>
                       <li>Delete</li>
-                      
                     </ul>
                   </div>
                 )}
               </div>
             </div>
             <div className="empty">
+              <img
+                src="https://www.pngall.com/wp-content/uploads/8/Task-PNG-Image-File.png"
+                alt="Placeholder"
+                style={{ width: "100px", height: "100px", marginBottom: "10px" }}
+              />
               <p>{item.message}</p>
             </div>
           </div>

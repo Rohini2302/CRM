@@ -1,0 +1,241 @@
+/* General styling for the preview container */
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #f8f9fc;
+  min-height: 100vh;
+  box-sizing: border-box;
+  height: 100vh;
+}
+
+/* Form container styling */
+.form-containers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+  box-sizing: border-box;
+  margin-left: 100px;
+
+  /* Fixed height */
+  height: 500px; /* Set a fixed height */
+  overflow-y: auto; /* Enable vertical scrolling when content exceeds height */
+}
+
+/* Styling for form title */
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form field styling */
+.form-field {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Label styling */
+.field-label {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Input field styling */
+.input-field,
+.textarea-field,
+.file-input {
+  width: 500px;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* Input focus style */
+.input-field:focus,
+.textarea-field:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+/* Textarea style */
+.textarea-field {
+  height: 120px;
+  resize: vertical;
+}
+
+/* Error text style */
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Submit button container */
+.submit-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Submit button styling */
+.submit-button2 {
+  background: #007bff;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  width: 200px;
+}
+
+/* Submit button hover effect */
+.submit-button2:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Submit button active effect */
+.submit-button2:active {
+  background: #003f7f;
+  transform: scale(0.98);
+}
+
+/* Popup container when form is submitted */
+.popup-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 128, 0, 0.9);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* Show popup when active */
+.popup-container.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Popup Box */
+.popup-box {
+  padding: 10px;
+  font-size: 18px;
+}
+
+/* 🔹 Tabs container (scrollable) */
+.tabs {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: auto;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  width: 100%;
+  border-bottom: 2px solid #e0e0e0;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+/* Individual tab button styling */
+.tab-button {
+  background: #f1f5f8;
+  border: 1px solid #ccc;
+  padding: 12px 25px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  white-space: nowrap; /* Ensure the text stays in one line */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  flex-shrink: 0; /* Prevent the tab from shrinking */
+}
+
+/* Style for navigation arrows */
+.arrow-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.arrow-button:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+.arrow-button:hover:not(:disabled) {
+  background: #0056b3;
+  transform: scale(1.1);
+}
+
+
+/* Active tab styling */
+.tab-button.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Hover effect on tab */
+.tab-button:hover {
+  background: #e2e8f0;
+}
+
+/* Responsive Design for Tabs */
+@media (max-width: 768px) {
+  .tabs {
+    flex-direction: column;
+    gap: 8px;
+    padding: 0;
+  }
+
+  .tab-button {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+
+  .form-containers {
+    padding: 15px;
+    height: 400px; /* You can adjust this for mobile */
+  }
+
+  .form-field {
+    margin-bottom: 15px;
+  }
+}

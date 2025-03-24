@@ -12,6 +12,8 @@ import Showlead from "./components/pages/Showlead/Showlead";
 import FormSelector from "./components/pages/dasboard/leads/FormSelector";
 import FormBuilder from "./components/pages/dasboard/leads/FormBuilder";
 import AgentLeadForm from "./components/pages/AgentForm/AgentLeadForm";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import PreviewForm from "../src/components/pages/dasboard/leads/PreviewForm";
 
 const App = () => {
   return (
@@ -28,7 +30,9 @@ const App = () => {
             <Route path="/AgentLead" element={<AgentLeadsList/>}/>
             <Route path="/Agentform" element={<AgentLeadForm/>}/>
             <Route path="/form-selector" element={<FormSelector />} />
+            
         <Route path="/form-builder" element={<FormBuilder />} />
+        <Route path="/preview-form" element={<PreviewForm/>} />
         
           </Routes>
         </div>

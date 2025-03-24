@@ -1,126 +1,166 @@
-/* Reset default margin and padding for the entire page */
-/* html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    overflow: hidden; Prevents scrolling on the entire page
-} */
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+}
 
-/* Main container for the table and filters */
 .table-container {
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Align content to the top */
-    align-items: center;
-    text-align: center;
-    padding: 20px; /* Adds padding around the table */
-    box-sizing: border-box; /* Ensures padding is included in width and height */
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px 0 rgba(18, 18, 19, 0.5);
 }
 
-/* Container for search bar, name filter bar, and filter dropdown */
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-section {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: center;
+  flex: 1;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab-section.active {
+  background-color: #131314;
+  color: white;
+  border-color: #0e0f0f;
+}
+
+.tab-section:hover {
+  background-color: #969494;
+}
+
+/* Filter Container */
 .filter-container {
-    display: flex;
-    align-items: center;
-    gap: 50px; /* Adds space between elements */
-    margin-bottom: 20px;
-    flex-wrap: wrap; /* Allows wrapping if screen size is small */
+  display: flex;
+  gap: 50px;
+  margin-bottom: 20px;
+  
 }
 
-/* Search bar and name filter bar styling */
 .search-bar,
-.name-filter-bar {
-    flex: 1; /* Allows search and name filter bars to grow */
-    max-width: 200px; /* Limits the width of search and name filter bars */
-}
-
-.search-bar input,
-.name-filter-bar input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    outline: none; /* Removes the default focus outline */
-}
-
-.search-bar input::placeholder,
-.name-filter-bar input::placeholder {
-    color: #999;
-}
-
-/* Status filter dropdown styling */
+.name-filter-bar,
 .filter-dropdown {
-    flex: 1; /* Allows the dropdown to grow */
-    max-width: 150px; /* Limits the width of the dropdown */
+  flex: 1;
 }
 
+/* Remove background and border for input fields */
+.search-bar input,
+.name-filter-bar input,
 .filter-dropdown select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: white;
-    cursor: pointer;
-    outline: none; /* Removes the default focus outline */
+  width: 100%;
+  padding: 10px;
+  border: none; /* Remove border */
+  border-bottom: 1px solid #ccc; /* Add a bottom border for a clean look */
+  font-size: 14px;
+  box-shadow: 0 0 10px 0 rgba(18, 18, 19, 0.5);
+  /* background-color: transparent; 
+  outline: none;  */
 }
 
-/* Scrollable table wrapper */
+/* Style for dropdown */
+.filter-dropdown select {
+  appearance: none; /* Remove default arrow */
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Table Wrapper (Scrollable) */
 .table-wrapper {
-    width: 100%;
-    max-height: 70vh; /* Adjust this value to control the table's height */
-    overflow-y: auto; /* Enables vertical scrolling */
-    border: 1px solid #ddd; /* Adds a border around the table */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
-    background-color: white; /* Adds background color to the table */
+  max-height: 400px; /* Adjust height as needed */
+  overflow: auto; /* Enable both vertical and horizontal scrolling */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px; /* Add spacing below the table */
+  box-shadow: 0 0 10px 0 rgba(18, 18, 19, 0.5);
 }
 
-/* Table styling */
+/* Table Styles */
 table {
-    width: 100%;
-    border-collapse: collapse; /* Removes space between table cells */
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Ensure the table has a minimum width for horizontal scrolling */
 }
 
-/* Table header styling */
-th {
-    background-color: #424552;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    padding: 12px 15px; /* Adds padding to header cells */
-    position: sticky; /* Makes the header sticky */
-    top: 0; /* Sticks the header to the top of the container */
-    z-index: 1; /* Ensures the header stays above the table rows */
+table th,
+table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
-/* Table row and cell styling */
-td {
-    padding: 8px 10px; /* Compact padding for cells */
-    border: 1px solid #ddd;
-    text-align: center;
-    white-space: nowrap; /* Prevents text wrapping */
-    overflow: hidden; /* Hides overflow content */
-    text-overflow: ellipsis; /* Adds ellipsis for overflow text */
-    max-width: 150px; /* Limits cell width */
-    line-height: 1.5; /* Ensures consistent line height */
+table th {
+  background-color: #242323;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
-/* Alternate row background color */
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+table tr:hover {
+  background-color: #b1abab;
 }
 
-/* Hover effect for table rows */
-tr:hover {
-    background-color: #ddd;
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-/* Fixed row height */
-tr {
-    height: 40px; /* Ensures consistent row height */
+.pagination-button {
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-button:disabled {
+  background-color: #e9e9e9;
+  cursor: not-allowed;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #222323;
+  color: white;
+}
+
+.pagination-button.active {
+  background-color: #121213;
+  color: white;
+}
+
+/* Tab Content Styles */
+.tab-content {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin-top: 20px;
+  
 }
