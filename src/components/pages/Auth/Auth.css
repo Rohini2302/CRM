@@ -1,0 +1,158 @@
+/* 🔹 Fullscreen Background */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url("/public//login2.png") no-repeat center center/cover;
+    position: relative;
+    transition: 0.5s ease-in-out;
+}
+
+/* 🔹 Dark Overlay */
+.auth-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+}
+
+/* 🔹 Transparent Form Box */
+.form-container {
+    display: flex;
+    width: 650px;
+    height: 420px;
+    background: rgba(255, 255, 255, 0.15);
+    /* backdrop-filter: blur(10px); */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s ease-in-out;
+}
+
+/* 🔹 Left Panel (Welcome Box) */
+.toggle-panel {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: 0.5s ease-in-out;
+}
+
+/* 🔹 Right Panel (Form Box) */
+.form-box {
+    width: 50%;
+    padding: 40px;
+    color: white;
+    transition: 0.5s ease-in-out;
+}
+
+/* Style for toggle panel heading */
+.toggle-heading {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+/* Style for form box heading */
+.form-heading {
+    font-size: 26px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+}
+
+/* 🔹 Input Fields */
+.auth-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+}
+
+.auth-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+/* 🔹 Form Buttons */
+button {
+    width: 100%;
+    padding: 10px;
+    background: rgba(102, 126, 234, 0.8);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: rgba(86, 67, 168, 0.9);
+}
+
+/* 🔹 Sliding Effect */
+.auth-container.register-mode .form-container {
+    transform: scale(1.05);
+}
+
+.auth-container.register-mode .toggle-panel {
+    transform: translateX(100%);
+    border-radius: 0 10px 10px 0;
+}
+
+.auth-container.register-mode .form-box {
+    transform: translateX(-100%);
+}
+
+
+/* Base styles remain unchanged */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+    }
+
+    .toggle-panel, .form-box {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .auth-container.register-mode .form-container {
+        transform: none;
+    }
+
+    .auth-container.register-mode .toggle-panel {
+        transform: none;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .auth-container.register-mode .form-box {
+        transform: none;
+    }
+}

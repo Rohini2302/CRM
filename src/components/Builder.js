@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 import './Builder.css';
 import { database } from "../firebaseConfig";
+import { Link } from "react-router-dom";
 
 const fieldOptions = [
   { type: "Name", label: "Name", icon: <FaUser /> },
@@ -36,40 +37,98 @@ const fieldOptions = [
 const Builder = () => {
   const [formFields, setFormFields] = useState([]);
   const [formTitle, setFormTitle] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   const addField = (type) => {
     let newFields = [];
 
     if (type === "Name") {
       newFields = [
-        { id: Date.now(), type: "EditText", label: "First Name", placeholder: "Enter First Name" },
-        { id: Date.now() + 1, type: "EditText", label: "Last Name", placeholder: "Enter Last Name" }
+        { id: Date.now(), type: "text", label: "First Name", placeholder: "Enter First Name" },
+        { id: Date.now() + 1, type: "text", label: "Last Name", placeholder: "Enter Last Name" }
       ];
     } else if (type === "Address") {
       newFields = [
-        { id: Date.now(), type: "EditText", label: "Street", placeholder: "Enter Street" },
-        { id: Date.now() + 1, type: "EditText", label: "City", placeholder: "Enter City" },
-        { id: Date.now() + 2, type: "EditText", label: "State", placeholder: "Enter State" },
-        { id: Date.now() + 3, type: "EditText", label: "Pincode", placeholder: "Enter Pincode" }
+        { id: Date.now(), type: "text", label: "Street", placeholder: "Enter Street" },
+        { id: Date.now() + 1, type: "text", label: "City", placeholder: "Enter City" },
+        { id: Date.now() + 2, type: "text", label: "State", placeholder: "Enter State" },
+        { id: Date.now() + 3, type: "text", label: "Pincode", placeholder: "Enter Pincode" }
       ];
+    } else if (type === "Select" || type === "MultiSelect" || type === "RadioButton" || type === "CheckBox") {
+      newFields = [{ id: Date.now(), type, label: type, options: ["Option 1", "Option 2", "Option 3"] }];
+    } else if (type === "Range") {
+      newFields = [{ 
+        id: Date.now(), 
+        type, 
+        label: type, 
+        min: 0, 
+        max: 100, 
+        step: 1, 
+        defaultValue: 50 
+      }];
+    } else if (type === "DateTime") {
+      newFields = [{ 
+        id: Date.now(), 
+        type, 
+        label: type,
+        dateFormat: "YYYY-MM-DD",
+        timeFormat: "HH:mm",
+        showTime: true
+      }];
+    } else if (type === "Toggle") {
+      newFields = [{ 
+        id: Date.now(), 
+        type, 
+        label: type,
+        defaultValue: false,
+        onLabel: "On",
+        offLabel: "Off"
+      }];
     } else {
-      newFields = [{ id: Date.now(), type, label: `Enter ${type} Label`, placeholder: "Enter Placeholder" }];
+      newFields = [{ id: Date.now(), type, label: type, placeholder: "Enter Placeholder" }];
     }
 
-    setFormFields([...formFields, { type, grouped: newFields }]); // Ensuring grouped is always an array
+    setFormFields([...formFields, ...newFields]);
   };
 
   const updateField = (id, key, value) => {
     setFormFields((prevFields) =>
+      prevFields.map((field) => (field.id === id ? { ...field, [key]: value } : field))
+    );
+  };
+
+  const updateOptions = (id, value) => {
+    setFormFields((prevFields) =>
       prevFields.map((field) =>
-        field.grouped
-          ? {
-              ...field,
-              grouped: field.grouped.map((subField) =>
-                subField.id === id ? { ...subField, [key]: value } : subField
-              ),
-            }
-          : field
+        field.id === id ? { ...field, options: value.split(",") } : field
+      )
+    );
+  };
+
+  const updateRangeSettings = (id, key, value) => {
+    setFormFields((prevFields) =>
+      prevFields.map((field) =>
+        field.id === id ? { ...field, [key]: Number(value) } : field
+      )
+    );
+  };
+
+  const updateDateTimeSettings = (id, key, value) => {
+    setFormFields((prevFields) =>
+      prevFields.map((field) =>
+        field.id === id ? { ...field, [key]: value } : field
+      )
+    );
+  };
+
+  const updateToggleSettings = (id, key, value) => {
+    setFormFields((prevFields) =>
+      prevFields.map((field) =>
+        field.id === id ? { ...field, [key]: value } : field
       )
     );
   };
@@ -80,10 +139,8 @@ const Builder = () => {
       return;
     }
 
-    const flatFields = formFields.flatMap(field => field.grouped);
-
     const formRef = push(ref(database, "forms"));
-    set(formRef, { title: formTitle, fields: flatFields })
+    set(formRef, { title: formTitle, fields: formFields })
       .then(() => {
         alert("Form saved successfully!");
         setFormFields([]);
@@ -94,10 +151,259 @@ const Builder = () => {
       });
   };
 
+  const renderFieldInput = (field) => {
+    switch (field.type) {
+      case "TextArea":
+        return <textarea placeholder={field.placeholder}></textarea>;
+      
+      case "Select":
+        return (
+          <div>
+            <select>
+              {field.options.map((option, index) => (
+                <option key={index}>{option}</option>
+              ))}
+            </select>
+            <input
+              type="text"
+              placeholder="Edit options (comma-separated)"
+              onChange={(e) => updateOptions(field.id, e.target.value)}
+            />
+          </div>
+        );
+      
+      case "MultiSelect":
+        return (
+          <div>
+            <select multiple>
+              {field.options.map((option, index) => (
+                <option key={index}>{option}</option>
+              ))}
+            </select>
+            <input
+              type="text"
+              placeholder="Edit options (comma-separated)"
+              onChange={(e) => updateOptions(field.id, e.target.value)}
+            />
+          </div>
+        );
+      
+      case "RadioButton":
+        return (
+          <div>
+            {field.options.map((option, index) => (
+              <div key={index}>
+                <input type="radio" name={`radio-${field.id}`} id={`radio-${field.id}-${index}`} />
+                <label htmlFor={`radio-${field.id}-${index}`}>{option}</label>
+              </div>
+            ))}
+            <input
+              type="text"
+              placeholder="Edit options (comma-separated)"
+              onChange={(e) => updateOptions(field.id, e.target.value)}
+            />
+          </div>
+        );
+      
+      case "CheckBox":
+        return (
+          <div>
+            {field.options.map((option, index) => (
+              <div key={index}>
+                <input type="checkbox" id={`checkbox-${field.id}-${index}`} />
+                <label htmlFor={`checkbox-${field.id}-${index}`}>{option}</label>
+              </div>
+            ))}
+            <input
+              type="text"
+              placeholder="Edit options (comma-separated)"
+              onChange={(e) => updateOptions(field.id, e.target.value)}
+            />
+          </div>
+        );
+      
+      case "Range":
+        return (
+          <div>
+            <input 
+              type="range" 
+              min={field.min} 
+              max={field.max} 
+              step={field.step} 
+              defaultValue={field.defaultValue}
+            />
+            <div className="range-settings">
+              <label>
+                Min:
+                <input 
+                  type="number" 
+                  value={field.min} 
+                  onChange={(e) => updateRangeSettings(field.id, "min", e.target.value)} 
+                />
+              </label>
+              <label>
+                Max:
+                <input 
+                  type="number" 
+                  value={field.max} 
+                  onChange={(e) => updateRangeSettings(field.id, "max", e.target.value)} 
+                />
+              </label>
+              <label>
+                Step:
+                <input 
+                  type="number" 
+                  value={field.step} 
+                  onChange={(e) => updateRangeSettings(field.id, "step", e.target.value)} 
+                />
+              </label>
+            </div>
+          </div>
+        );
+      
+      case "ImagePicker":
+        return (
+          <div>
+            <input 
+              type="file" 
+              accept="image/*" 
+              onChange={(e) => updateField(field.id, "value", e.target.files[0])}
+            />
+          </div>
+        );
+      
+      case "FileUpload":
+        return (
+          <div>
+            <input 
+              type="file" 
+              onChange={(e) => updateField(field.id, "value", e.target.files[0])}
+            />
+          </div>
+        );
+      
+      case "ColorPicker":
+        return (
+          <div>
+            <input 
+              type="color" 
+              onChange={(e) => updateField(field.id, "value", e.target.value)}
+            />
+          </div>
+        );
+      
+      case "Date":
+        return (
+          <div>
+            <input 
+              type="date" 
+              onChange={(e) => updateField(field.id, "value", e.target.value)}
+            />
+          </div>
+        );
+      
+      case "Time":
+        return (
+          <div>
+            <input 
+              type="time" 
+              onChange={(e) => updateField(field.id, "value", e.target.value)}
+            />
+          </div>
+        );
+      
+      case "DateTime":
+        return (
+          <div>
+            <input 
+              type="datetime-local" 
+              onChange={(e) => updateField(field.id, "value", e.target.value)}
+            />
+            <div className="datetime-settings">
+              <label>
+                Date Format:
+                <select 
+                  value={field.dateFormat} 
+                  onChange={(e) => updateDateTimeSettings(field.id, "dateFormat", e.target.value)}
+                >
+                  <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                  <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                  <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                </select>
+              </label>
+              <label>
+                Time Format:
+                <select 
+                  value={field.timeFormat} 
+                  onChange={(e) => updateDateTimeSettings(field.id, "timeFormat", e.target.value)}
+                >
+                  <option value="HH:mm">24-hour</option>
+                  <option value="hh:mm A">12-hour</option>
+                </select>
+              </label>
+              <label>
+                Show Time:
+                <input 
+                  type="checkbox" 
+                  checked={field.showTime} 
+                  onChange={(e) => updateDateTimeSettings(field.id, "showTime", e.target.checked)}
+                />
+              </label>
+            </div>
+          </div>
+        );
+      
+      case "Toggle":
+        return (
+          <div className="toggle-container">
+            <label className="toggle-switch">
+              <input 
+                type="checkbox" 
+                defaultChecked={field.defaultValue}
+                onChange={(e) => updateField(field.id, "defaultValue", e.target.checked)}
+              />
+              <span className="slider round"></span>
+            </label>
+            <div className="toggle-settings">
+              <label>
+                On Label:
+                <input
+                  type="text"
+                  value={field.onLabel}
+                  onChange={(e) => updateToggleSettings(field.id, "onLabel", e.target.value)}
+                />
+              </label>
+              <label>
+                Off Label:
+                <input
+                  type="text"
+                  value={field.offLabel}
+                  onChange={(e) => updateToggleSettings(field.id, "offLabel", e.target.value)}
+                />
+              </label>
+            </div>
+          </div>
+        );
+      
+      default:
+        return <input type={field.type} placeholder={field.placeholder} />;
+    }
+  };
+
   return (
-    <div className="form-builder-container">
-      <div className="sidebar">
-        <h3>Fields</h3>
+    
+     <div className="form-builder-container">
+       {/* Hamburger menu for mobile */}
+       <button className="hamburger" onClick={toggleSidebar}>
+  ☰
+</button>
+      {/* Sidebar */}
+      <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+      <div className="sidebar-header1">
+    <button className="back-button"><Link to={"/"}>Back</Link></button>
+    <button className="close-button" onClick={toggleSidebar}>✖</button>
+  </div>
+   <h3>Fields</h3>
         {fieldOptions.map((field) => (
           <div key={field.type} className="field-option" onClick={() => addField(field.type)}>
             {field.icon} {field.label}
@@ -119,32 +425,19 @@ const Builder = () => {
         ) : (
           <div className="form-content">
             {formFields.map((field) => (
-              <div key={field.type} className="field-group">
-                <div className="row">
-                  {field.grouped.map((subField) => (
-                    <div key={subField.id} className="form-field">
-                      <input
-                        type="text"
-                        value={subField.label}
-                        onChange={(e) => updateField(subField.id, "label", e.target.value)}
-                        className="label-input"
-                      />
-                      {(subField.type === "EditText" || subField.type === "TextArea") && (
-                        <input
-                          type="text"
-                          placeholder={subField.placeholder}
-                          onChange={(e) => updateField(subField.id, "placeholder", e.target.value)}
-                          className="field-input"
-                        />
-                      )}
-                    </div>
-                  ))}
-                </div>
+              <div key={field.id} className="form-field">
+                <input
+                  type="text"
+                  value={field.label}
+                  onChange={(e) => updateField(field.id, "label", e.target.value)}
+                  className="label-input"
+                />
+                {renderFieldInput(field)}
               </div>
             ))}
           </div>
         )}
-        <button className="submit-btn" onClick={saveFormToFirebase}>Save Form</button>
+        <button className="submit-btn" onClick={saveFormToFirebase}>Submit</button>
       </div>
     </div>
   );

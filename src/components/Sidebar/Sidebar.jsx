@@ -34,28 +34,37 @@ const Sidebar = () => {
 
   // Logout function
   const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated"); // Clear authentication flag
-    localStorage.removeItem("userRole"); // Remove user role
-    localStorage.removeItem("userEmail"); // Remove user email
-    navigate("/login"); // Redirect to login page
+    // Clear authentication data from localStorage
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+  
+    // Force a full page reload
+    window.location.href = "/auth";
   };
-
+  
   return (
     <>
       {/* Hamburger Menu Icon */}
-      <button 
-        className={`menu-icon ${isOpen ? "open" : ""}`} 
-        onClick={toggleSidebar}
-        aria-label="Toggle navigation"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <button
+  className={`menu-icon ${isOpen ? "open" : ""} ${
+    location.pathname === "/leads" ? "hide-menu-icon" : ""
+  }`}
+  onClick={toggleSidebar}
+  aria-label="Toggle navigation"
+>
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 
       {/* Sidebar */}
-      <div className={`sidebar1 ${isOpen ? "open" : ""}`} ref={sidebarRef}>
-        {/* Logo/Site Name */}
+      <div 
+  className={`sidebar1 ${isOpen ? "open" : ""} ${
+    location.pathname === "/leads" ? "hide-sidebar" : ""
+  }`} 
+  ref={sidebarRef}
+>
         <div className="sidebar-header">
           <h2>LeadManager</h2>
         </div>
@@ -80,7 +89,6 @@ const Sidebar = () => {
           <li className={isActive("/Agentform") ? "active" : ""}>
             <Link to="/Agentform" onClick={closeSidebar}>📝 Agent Form</Link>
           </li>
-          
         </ul>
 
         {/* Logout Button */}

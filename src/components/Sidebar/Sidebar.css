@@ -58,6 +58,7 @@
   cursor: pointer;
   z-index: 1100;
   padding: 10px;
+  position: absolute;
 }
 
 .menu-icon span {
@@ -109,5 +110,15 @@
   
   .menu-icon {
     display: none;
+  }
+}
+@media (max-width: 768px) {
+  .hide-sidebar {
+    display: none !important;
+  }
+}
+@media (max-width: 768px) {
+  .hide-menu-icon {
+    display: none !important;
   }
 }
