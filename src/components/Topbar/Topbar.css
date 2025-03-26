@@ -1,77 +1,149 @@
 .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #222;
-    padding: 10px 20px;
-    color: white;
-  }
-  
-  .logo {
-    font-size: 24px;
-  }
-  
-  /* Search Field */
-  .search-container {
-    display: flex;
-    align-items: center;
-    background: #333;
-    padding: 5px;
-    border-radius: 5px;
-  }
-  
-  .search-icon {
-    color: white;
-    margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #222;
+  padding: 10px 20px;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 250px; /* Same as sidebar width */
+  right: 0;
+  z-index: 999;
+  transition: left 0.3s ease;
+}
+
+.logo {
+  font-size: 24px;
+  color: wheat;
+  text-align: center;
+}
+
+/* Search Field */
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #333;
+  padding: 5px;
+  height: 5vh;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.search-icon {
+  color: white;
+  margin-right: 5px;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  padding: 5px;
+  width: 200px;
+  transition: width 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: #ccc;
+}
+
+/* Buttons & Profile Section */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-icon {
+  font-size: 30px;
+}
+
+.signout-btn {
+  background: red;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signout-btn:hover {
+  background: darkred;
+}
+
+/* Mobile Menu Toggle Button */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .topbar {
+    left: 200px;
   }
   
   .search-input {
-    background: transparent;
-    border: none;
-    color: white;
-    outline: none;
-    padding: 5px;
+    width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    left: 0;
+    justify-content: flex-start;
   }
   
-  .search-input::placeholder {
-    color: #ccc;
-  }
-  
-  /* Buttons & Profile Section */
+  .search-container,
   .topbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    display: none;
   }
   
-  .icon-btn {
-    background: none;
-    border: none;
-    color: white;
+  .menu-toggle {
+    display: block;
+  }
+  
+  .logo {
+    margin-left: 10vh;
+    margin-top: 1.5vh;
     font-size: 20px;
-    cursor: pointer;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .topbar {
+    padding: 10px;
   }
   
-  .profile-section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .logo {
+    font-size: 18px;
   }
   
-  .profile-icon {
-    font-size: 30px;
+  .menu-toggle {
+    font-size: 20px;
+    margin-right: 10px;
   }
-  
-  .signout-btn {
-    background: red;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .signout-btn:hover {
-    background: darkred;
-  }
-  
+}

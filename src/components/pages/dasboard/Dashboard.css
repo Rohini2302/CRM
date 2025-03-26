@@ -29,6 +29,7 @@ body, html {
     padding: 15px 20px; /* Adjusted padding */
     border-bottom: 2px solid #ddd;
     margin-top: 0; /* Removed negative margin */
+    
 }
 
 .profile {

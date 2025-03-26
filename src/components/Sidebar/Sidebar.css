@@ -3,10 +3,10 @@
   position: fixed;
   left: -250px;
   top: 0;
-  width: 250px;
+  width: 200px;
   height: 100vh;
   background: #222;
-  padding-top: 60px;
+  padding-top: 20px; /* Reduced from 60px */
   transition: 0.3s ease-in-out;
   z-index: 1000;
 }
@@ -22,7 +22,13 @@
 }
 
 .sidebar1 ul li {
-  padding: 15px;
+  padding: 5px 15px; /* Reduced vertical padding */
+}
+
+.sidebar-header {
+  background-color: transparent;
+  padding: 10px 15px; /* Added padding for header */
+  margin-bottom: 10px; /* Space between header and first item */
 }
 
 .sidebar1 ul li a {
@@ -30,7 +36,7 @@
   text-decoration: none;
   font-size: 18px;
   display: block;
-  padding: 12px 20px;
+  padding: 8px 15px; /* Reduced padding */
   border-radius: 4px;
   transition: 0.3s;
 }
@@ -44,7 +50,7 @@
 .menu-icon {
   display: none;
   position: fixed;
-  top: 20px;
+  top: 10px;
   left: 20px;
   background: rgba(0, 0, 0, 0.7);
   border: none;
@@ -61,6 +67,19 @@
   margin: 4px 0;
   background: #fff;
   transition: 0.3s;
+}
+
+/* Active menu item style */
+.sidebar-menu li.active a {
+  background: #444;
+  border-left: 3px solid #3498db;
+  transform: translateX(5px);
+}
+
+/* If you want to keep the hover effect for non-active items */
+.sidebar-menu li:not(.active) a:hover {
+  background: #333;
+  transform: translateX(5px);
 }
 
 /* Mobile Responsiveness */

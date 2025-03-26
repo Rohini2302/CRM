@@ -1,4 +1,3 @@
-/* General Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -164,3 +163,74 @@ table tr:hover {
   margin-top: 20px;
   
 }
+
+/* Customize */
+.ai-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.ai-btn:hover {
+  background-color: #0056b3;
+}
+
+select {
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.action-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.action-icon {
+  font-size: 22px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+/* Individual icon styles */
+.call {
+  background-color: green;
+}
+.call:hover {
+  background-color: darkgreen;
+}
+
+.msg {
+  background-color: blue;
+}
+.msg:hover {
+  background-color: darkblue;
+}
+
+.whatsapp {
+  background-color: #25D366;
+}
+.whatsapp:hover {
+  background-color: #1ebe5d;
+}
+
+.email {
+  background-color: red;
+}
+.email:hover {
+  background-color: darkred;
+}
+

@@ -1,0 +1,106 @@
+/* Full-screen background */
+html, body {
+    height: 100%; /* Ensure the html and body take up the full height */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.login-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full height of the viewport */
+    width: 100vw; /* Full width of the viewport */
+    /* background: linear-gradient(135deg, #667eea, #764ba2); Gradient background */
+    background-size: cover; /* Cover the entire area */
+    background-position: center; /* Center the background */
+    position: absolute; /* Absolute positioning to avoid scrolling */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    /* background-image: url(../image/loginjpg.jpg); */
+}
+
+
+/* Login Box */
+.login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 420px;
+}
+
+/* Tabs (Admin & Agent) */
+.tab-switch {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-switch button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #e6e6e6;
+    color: #333;
+    border-radius: 5px;
+}
+
+.tab-switch button.active {
+    background: #007bff;
+    color: white;
+}
+
+/* Input Fields */
+.login-box label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    display: block;
+}
+
+.login-box input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Sign In Button */
+.login-box button {
+    width: 100%;
+    padding: 14px;
+    background: #007bff;
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 15px;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.login-box button:hover {
+    background: #0056b3;
+}
+.signup-redirect {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.signup-redirect span:hover {
+    text-decoration: underline;
+}

@@ -5,7 +5,7 @@ import "./Topbar.css";
 const Topbar = () => {
   return (
     <div className="topbar">
-      <h1 className="logo">Lead Management System</h1>
+      <h1 className="logo">LMS</h1>
 
       {/* Search Field */}
       <div className="search-container">
@@ -14,7 +14,7 @@ const Topbar = () => {
       </div>
 
       {/* Buttons & Profile */}
-      <div className="topbar-actions">
+      {/* <div className="topbar-actions">
         <button className="icon-btn">
           <FaBell />
         </button>
@@ -22,14 +22,14 @@ const Topbar = () => {
           <FaCog />
         </button>
 
-        {/* Profile and Sign Out */}
-        <div className="profile-section">
+       
+      </div> */}
+      <div className="profile-section">
           <FaUserCircle className="profile-icon" />
           <button className="signout-btn">
             <FaSignOutAlt /> Sign Out
           </button>
         </div>
-      </div>
     </div>
   );
 };
