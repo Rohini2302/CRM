@@ -33,6 +33,9 @@
   padding: 10px 15px;
   margin-bottom: 10px;
 }
+.sidebar-header h2{
+  color: white;
+}
 
 /* Sidebar Links */
 .sidebar1 ul li a {
@@ -103,6 +106,19 @@
   outline: none;
   border: none;
   box-shadow: none;
+}
+.logout-button{
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  padding: 5px 9px;
+  border-radius: 4px;
+  transition: 0.3s ease-in-out;
+  width: 120px;
+  margin-top: 60px;
+  margin-left: 35px;
+  background-color: brown;
 }
 
 /* Mobile Responsive */
