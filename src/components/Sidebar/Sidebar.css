@@ -6,15 +6,17 @@
   width: 200px;
   height: 100vh;
   background: #222;
-  padding-top: 20px; /* Reduced from 60px */
-  transition: 0.3s ease-in-out;
+  padding-top: 20px;
+  transition: left 0.3s ease-in-out;
   z-index: 1000;
 }
 
+/* Open Sidebar */
 .sidebar1.open {
   left: 0;
 }
 
+/* Sidebar Menu */
 .sidebar1 ul {
   list-style: none;
   padding: 0;
@@ -22,23 +24,25 @@
 }
 
 .sidebar1 ul li {
-  padding: 5px 15px; /* Reduced vertical padding */
+  padding: 5px 15px;
 }
 
+/* Sidebar Header */
 .sidebar-header {
   background-color: transparent;
-  padding: 10px 15px; /* Added padding for header */
-  margin-bottom: 10px; /* Space between header and first item */
+  padding: 10px 15px;
+  margin-bottom: 10px;
 }
 
+/* Sidebar Links */
 .sidebar1 ul li a {
   color: white;
   text-decoration: none;
   font-size: 18px;
   display: block;
-  padding: 8px 15px; /* Reduced padding */
+  padding: 10px 15px;
   border-radius: 4px;
-  transition: 0.3s;
+  transition: 0.3s ease-in-out;
 }
 
 .sidebar1 ul li a:hover {
@@ -46,63 +50,77 @@
   transform: translateX(5px);
 }
 
-/* Hamburger Menu Icon */
-.menu-icon {
-  display: none;
-  position: fixed;
-  top: 10px;
-  left: 20px;
-  background: rgba(0, 0, 0, 0.7);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  z-index: 1100;
-  padding: 10px;
-  position: absolute;
-}
-
-.menu-icon span {
-  display: block;
-  width: 25px;
-  height: 3px;
-  margin: 4px 0;
-  background: #fff;
-  transition: 0.3s;
-}
-
-/* Active menu item style */
+/* Active Menu Item */
 .sidebar-menu li.active a {
   background: #444;
   border-left: 3px solid #3498db;
   transform: translateX(5px);
 }
 
-/* If you want to keep the hover effect for non-active items */
 .sidebar-menu li:not(.active) a:hover {
   background: #333;
   transform: translateX(5px);
 }
 
-/* Mobile Responsiveness */
+/* Hamburger Menu Button */
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.menu-icon span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 4px ;
+  background: black;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Open Hamburger Menu Animation */
+.menu-icon.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-icon.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-icon.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Hide focus outline */
+.menu-icon:focus,
+.menu-icon:active {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .menu-icon {
     display: block;
   }
 
-  .menu-icon.open span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+  .hide-sidebar {
+    display: none !important;
   }
-  
-  .menu-icon.open span:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .menu-icon.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
+
+  .hide-menu-icon {
+    display: none !important;
   }
 }
 
-/* Desktop Styles */
+/* Desktop - Always Show Sidebar */
 @media (min-width: 769px) {
   .sidebar1 {
     left: 0;
@@ -110,15 +128,5 @@
   
   .menu-icon {
     display: none;
-  }
-}
-@media (max-width: 768px) {
-  .hide-sidebar {
-    display: none !important;
-  }
-}
-@media (max-width: 768px) {
-  .hide-menu-icon {
-    display: none !important;
   }
 }

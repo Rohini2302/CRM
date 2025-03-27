@@ -8,7 +8,7 @@ const AgentLeadForm = () => {
     Email: "",
     Password: "",
     LeadStatus: "",
-    AssingedLeads: "",
+    AssignedLeads: "",
   });
 
   const [successMessage, setSuccessMessage] = useState("");
@@ -42,7 +42,7 @@ const AgentLeadForm = () => {
         Email: "",
         Password: "",
         LeadStatus: "",
-        AssingedLeads: "",
+        AssignedLeads: "",
       });
     } catch (error) {
       setSuccessMessage("");
@@ -51,42 +51,45 @@ const AgentLeadForm = () => {
   };
 
   return (
-    <div className="container2">
-      <div className="form-container">
-        <h2>Agent Lead Form</h2>
-        {successMessage && <p className="success-message">{successMessage}</p>}
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+    <div className="agent-form-wrapper">
+      <div className="agent-form-container">
+        <h2 className="agent-form-heading">Agent Lead Form</h2>
+        {successMessage && <p className="agent-success-message">{successMessage}</p>}
+        {errorMessage && <p className="agent-error-message">{errorMessage}</p>}
 
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div className="agent-input-group">
             <input
               type="text"
               name="Id"
               placeholder="Id"
               value={formData.Id}
               onChange={handleChange}
+              className="agent-input-field"
               required
             />
           </div>
 
-          <div className="form-group">
+          <div className="agent-input-group">
             <input
               type="text"
               name="Name"
               placeholder="Name"
               value={formData.Name}
               onChange={handleChange}
+              className="agent-input-field"
               required
             />
           </div>
 
-          <div className="form-row">
+          <div className="agent-input-row">
             <input
               type="text"
               name="Email"
               placeholder="Email"
               value={formData.Email}
               onChange={handleChange}
+              className="agent-input-field"
               required
             />
             <input
@@ -95,47 +98,49 @@ const AgentLeadForm = () => {
               placeholder="Password"
               value={formData.Password}
               onChange={handleChange}
+              className="agent-input-field"
               required
             />
           </div>
 
           {/* Dropdown for Lead Status */}
-          <div className="form-group">
+          <div className="agent-input-group">
             <select
               name="LeadStatus"
               value={formData.LeadStatus}
               onChange={handleChange}
+              className="agent-select-field"
               required
             >
-              {/* <option value="">Select Lead Status</option> */}
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
           </div>
 
-          <div className="form-group">
+          <div className="agent-input-group">
             <input
               type="text"
-              name="AssingedLeads"
+              name="AssignedLeads"
               placeholder="Assigned Leads"
-              value={formData.AssingedLeads}
+              value={formData.AssignedLeads}
               onChange={handleChange}
+              className="agent-input-field"
               required
             />
           </div>
 
-          <button type="submit" className="submit-btn">Submit</button>
+          <button type="submit" className="agent-submit-button">Submit</button>
         </form>
       </div>
 
-      {/* Keeping Agent Preview as it is */}
-      <div className="preview-container">
-      <h3>Agent Preview</h3>
-      {Object.entries(formData).map(([key, value]) => (
-    <p key={key}>
-      <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> 
-      <span>{value}</span>
-    </p>
+      {/* Agent Preview */}
+      <div className="agent-preview-container">
+        <h3 className="agent-preview-heading">Agent Preview</h3>
+        {Object.entries(formData).map(([key, value]) => (
+          <p className="agent-preview-item" key={key}>
+            <strong className="agent-preview-label">{key.charAt(0).toUpperCase() + key.slice(1)}:</strong>
+            <span className="agent-preview-value">{value}</span>
+          </p>
         ))}
       </div>
     </div>

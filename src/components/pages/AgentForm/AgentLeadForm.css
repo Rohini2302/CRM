@@ -1,6 +1,6 @@
-/* General Styling */
+/* General Page Styling */
 /* body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
@@ -11,60 +11,44 @@
 } */
 
 /* Main Container */
-.container2 {
+.agent-form-wrapper {
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
-    max-width: 1200px;
     justify-content: center;
     align-items: flex-start;
-    gap: 20px;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
     padding: 20px;
 }
 
 /* Form Container */
-.form-container {
+.agent-form-container {
     flex: 1;
     background: white;
-    padding: 20px;
+    padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 500px;
     box-sizing: border-box;
-    
 }
 
-/* Title */
-.form-container h2 {
+.agent-form-heading {
     text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Form Group */
-.form-group {
-    width: 100%;
+    font-size: 22px;
+    font-weight: bold;
     margin-bottom: 15px;
 }
 
-
-
-
-
-.form-group select {
+/* Form Group */
+.agent-input-group {
+    margin-bottom: 15px;
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background: white;
-    cursor: pointer;
 }
 
-
-
-.form-group input,
-.form-group textarea {
+.agent-input-field,
+.agent-select-field {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -72,28 +56,26 @@
     font-size: 16px;
 }
 
-/* Two-Column Layout */
-.form-row {
+.agent-input-field:focus,
+.agent-select-field:focus {
+    border-color: #6a0dad;
+    outline: none;
+}
+
+/* Two-Column Layout for Email & Password */
+.agent-input-row {
     display: flex;
     gap: 10px;
-    
 }
 
-/* .submit-btn{
-    size-adjust: 10px;
-} */
-
-
-
-
-.form-row input {
+.agent-input-row .agent-input-field {
     flex: 1;
 }
 
 /* Submit Button */
-.submit-btn {
-    width: 30%;
-    background-color: #d29ffb;
+.agent-submit-button {
+    width: 100%;
+    background-color: #007bff;
     color: white;
     padding: 12px;
     border: none;
@@ -101,125 +83,104 @@
     cursor: pointer;
     font-size: 16px;
     text-transform: uppercase;
+    transition: background 0.3s ease-in-out;
 }
 
-.submit-btn:hover {
-    background-color: #b77be0;
+.agent-submit-button:hover {
+    background-color: #3e97f5;
 }
 
-/* Agent Preview Container */
-.preview-container {
+.agent-input-group {
+    margin-top: 10px; /* Adjust the spacing */
+  }
+/* Success & Error Messages */
+.agent-success-message {
+    color: green;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.agent-error-message {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Preview Section */
+.agent-preview-container {
     flex: 1;
     background: white;
-    padding: 20px;
+    padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 500px;
-    /* height: 550px; */
     box-sizing: border-box;
     overflow: auto;
-    margin-right: 60px;
-    /* margin-top: 25px; */
-    
 }
 
-/* Agent Preview */
-/* .preview-container p {
-    font-size: 16px;
-    margin: 5px 0;
-    margin-right:450px;
+.agent-preview-heading {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Preview Items */
+.agent-preview-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     font-size: 16px;
-    padding: 5px;
-    
- 
-}
-    
-
-
-.preview-container p strong {
-    font-weight: bold;
-    min-width: 150px; /* Adjust width to align labels*/
-
-     
-/* Agent Preview */
-.preview-container p {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    margin: 5px 0;
-    padding: 5px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
 }
 
-.preview-container p strong {
-    font-weight: bold;
-    min-width: 120px; /* Ensures proper alignment */
+.agent-preview-label {
+    min-width: 120px;
     text-align: left;
+    font-weight: bold;
 }
 
-.preview-container span {
-    margin-left: 10px; /* Adjust space between label and value */
-    text-align: left;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .preview-container span {
+.agent-preview-value {
     flex-grow: 1;
     text-align: left;
-} */
-
-
-
+}
 
 
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
-    .container {
+    .agent-form-wrapper {
         flex-direction: column;
         align-items: center;
     }
 
-    .form-container,
-    .preview-container {
+    .agent-form-container,
+    .agent-preview-container {
         width: 90%;
         max-width: none;
-        height: auto;
     }
 }
 
 @media screen and (max-width: 480px) {
-    .form-container {
-        padding: 15px;
+    .agent-form-container {
+        padding: 20px;
     }
 
-    .form-group input,
-    .form-group textarea {
+    .agent-input-field,
+    .agent-select-field {
         font-size: 14px;
         padding: 8px;
     }
 
-    .submit-btn {
+    .agent-submit-button {
         font-size: 14px;
         padding: 10px;
+    }
+
+    .agent-preview-item {
+        font-size: 14px;
     }
 }
