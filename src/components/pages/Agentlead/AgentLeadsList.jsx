@@ -5,9 +5,8 @@ import "./AgentLeadsList.css";
 const AgentLeadsList = () => {
   const [agentLeads, setAgentLeads] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterBy, setFilterBy] = useState("name");
+  const [filterBy, setFilterBy] = useState("all");
   const [filteredLeads, setFilteredLeads] = useState([]);
-  const [isFiltered, setIsFiltered] = useState(false); // Track if search is applied
 
   useEffect(() => {
     const fetchAgentLeads = async () => {
@@ -39,34 +38,35 @@ const AgentLeadsList = () => {
     setFilteredLeads(dummyData);
   }, []);
 
-  // Handles filtering when the search button is clicked
-  const handleSearch = () => {
-    const newFilteredLeads = agentLeads.filter((lead) =>
-      lead[filterBy].toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredLeads(newFilteredLeads);
-    setIsFiltered(true); // Mark filtered state
-  };
+  // Automatically filter when searchTerm or filterBy changes
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setFilteredLeads(agentLeads);
+    } else {
+      const newFilteredLeads = agentLeads.filter((lead) => {
+        const term = searchTerm.toLowerCase();
+        if (filterBy === "all") {
+          return (
+            lead.name.toLowerCase().includes(term) ||
+            lead.email.toLowerCase().includes(term) ||
+            lead.assignedLeads.toLowerCase().includes(term) ||
+            lead.leadStatus.toLowerCase().includes(term)
+          );
+        } else {
+          return lead[filterBy].toLowerCase().includes(term);
+        }
+      });
+      setFilteredLeads(newFilteredLeads);
+    }
+  }, [searchTerm, filterBy, agentLeads]);
 
-  // Reset to show all data
   const handleReset = () => {
-    setFilteredLeads(agentLeads);
     setSearchTerm("");
-    setIsFiltered(false);
-  };
-
-  const handleBack = () => {
-    window.history.back();
   };
 
   return (
     <div className="agent-leads-list">
-      {/* Back Button
-      <button className="back-btn" onClick={handleBack}>
-        ← Back
-      </button> */}
-
-      <h2>Agent Leads List</h2>
+      <h1 className="Agent-Title">Agent Leads List</h1>
 
       {/* Search and Filter Controls */}
       <div className="search-filter-container">
@@ -75,13 +75,12 @@ const AgentLeadsList = () => {
           onChange={(e) => setFilterBy(e.target.value)}
           className="filter-dropdown"
         >
-          <option value="name"> Name</option>
-          <option value="email"> Email</option>
-          <option value="assignedLeads"> Assigned Leads</option>
+          <option value="all">ALL</option>
+          <option value="name">Name</option>
+          <option value="email">Email</option>
+          <option value="assignedLeads">Assigned Leads</option>
+          <option value="leadStatus">Status</option>
         </select>
-        <button className="search-btn" onClick={handleSearch}>
-          Filter
-        </button>
 
         <input
           type="text"
@@ -91,38 +90,85 @@ const AgentLeadsList = () => {
           className="search-bar"
         />
 
-        <button className="search-btn" onClick={handleSearch}>
-          Search
-        </button>
-
         {/* Show Reset Button only when filtered */}
-        {isFiltered && (
+        {searchTerm && (
           <button className="reset-btn" onClick={handleReset}>
-            Reset
+            Show List
           </button>
         )}
       </div>
 
-      <table>
+      {/* 🟢 Table Wrapper for Scrolling */}
+      
+      {/* <div className="table-container">
+        <table>
         <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Assigned Leads</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredLeads.map((lead) => (
-            <tr key={lead.id}>
-              <td>{lead.id}</td>
-              <td>{lead.name}</td>
-              <td>{lead.email}</td>
-              <td>{lead.assignedLeads}</td>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Assigned Leads</th>
+              <th>Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+        </table>
+        
+        <table> */}
+          {/* <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Assigned Leads</th>
+              <th>Status</th>
+            </tr>
+          </thead> */}
+          {/* <tbody>
+            {filteredLeads.map((lead) => (
+              <tr key={lead.id}>
+                <td>{lead.id}</td>
+                <td>{lead.name}</td>
+                <td>{lead.email}</td>
+                <td>{lead.password}</td>
+                <td>{lead.assignedLeads}</td>
+                <td>{lead.leadStatus}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div> */}
+
+<div className="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Assigned Leads</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {filteredLeads.map((lead) => (
+        <tr key={lead.id}>
+          <td>{lead.id}</td>
+          <td>{lead.name}</td>
+          <td>{lead.email}</td>
+          <td>{lead.password}</td>
+          <td>{lead.assignedLeads}</td>
+          <td>{lead.leadStatus}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+
+      
     </div>
   );
 };
