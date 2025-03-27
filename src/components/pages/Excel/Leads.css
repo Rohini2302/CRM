@@ -1,0 +1,271 @@
+/* General Styles */
+.container {
+    max-width: 95%;
+    margin: auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header */
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Upload & Export Buttons */
+  .mb-3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+    width: 140px;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+  }
+  
+  /* Scrollable Tabs Container */
+  .tabs-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 2px solid #ddd;
+    margin-top: 10px;
+    padding-bottom: 5px;
+  }
+  
+  /* Scrollable Tabs - Fix for Desktop */
+  .nav-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #007bff #f8f9fa;
+    padding-bottom: 5px;
+    max-width: 100%;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  /* Scrollbar Styling */
+  .nav-tabs::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .nav-tabs::-webkit-scrollbar-thumb {
+    background: #007bff;
+    border-radius: 10px;
+  }
+  
+  .nav-tabs::-webkit-scrollbar-track {
+    background: #f8f9fa;
+  }
+  
+  /* Tab Buttons */
+  .nav-item {
+    flex-shrink: 0;
+  }
+  
+  .nav-tabs .nav-link {
+    display: inline-block;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    background: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+    transition: 0.3s;
+    white-space: nowrap;
+    border-radius: 6px 6px 0 0;
+  }
+  
+  .nav-tabs .nav-link.active {
+    background: #007bff;
+    color: white;
+    border-bottom: 2px solid #007bff;
+  }
+  
+  /* Table Container */
+  .table-responsive {
+    max-width: 100%;
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-top: 15px;
+  }
+  
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  th {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  
+  /* Modal Header - Keep Title Centered */
+.modal-header {
+    display: flex;
+    justify-content: center; /* Centers the title */
+    align-items: center;
+    position: relative;
+    padding: 15px;
+  }
+  
+  /* Buttons in the Top-Right Corner */
+  .modal-buttons {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Button Styling */
+  .modal-buttons .btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .modal-buttons .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .modal-buttons .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .modal-buttons .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+  }
+  
+  .modal-buttons .btn-secondary:hover {
+    background-color: #545b62;
+  }
+  
+
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
+  
+    .nav-tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+    }
+  
+    th, td {
+      font-size: 12px;
+      padding: 6px;
+    }
+  }
+
+  /* Modal Header - Centered Title */
+.modal-header {
+    display: flex;
+    justify-content: center; /* Centers title */
+    align-items: center;
+    position: relative;
+    padding: 15px;
+  }
+  
+  /* Buttons in the Top-Right Corner */
+  .modal-buttons {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  /* Button Styling */
+  .modal-buttons .btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Responsive for Small Screens (Mobile View) */
+  @media (max-width: 576px) {
+    .modal-header {
+      flex-direction: column; /* Stack title & buttons */
+      text-align: center;
+      padding-bottom: 40px;
+    }
+  
+    .modal-buttons {
+      position: static; /* Remove absolute positioning */
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+  
+    .modal-buttons .btn {
+      font-size: 12px;
+      padding: 6px 10px;
+      flex: 1; /* Allow buttons to stretch */
+      max-width: 150px; /* Limit button width */
+    }
+  }
+  
+  

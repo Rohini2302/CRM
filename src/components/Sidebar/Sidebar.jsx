@@ -81,6 +81,9 @@ const Sidebar = () => {
             <li className={location.pathname === "/Agentform" ? "active" : ""}>
               <Link to="/Agentform" onClick={closeSidebar}>📝 Agent Form</Link>
             </li>
+            <li className={location.pathname === "/excel" ? "active" : ""}>
+            <Link to="/excel" onClick={closeSidebar}>📝import excel</Link>
+          </li>
           </ul>
 
           {/* Logout Button */}

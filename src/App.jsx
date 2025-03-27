@@ -9,7 +9,7 @@ import AgentLeadForm from "./components/pages/AgentForm/AgentLeadForm";
 import Builder from "./components/Builder";
 import Auth from "./components/pages/Auth/Auth"; 
 import "./App.css";
-import Leads from "./components/pages/Leads/Leads";
+import Leads from "./components/pages/Excel/Leads";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -48,8 +48,7 @@ const App = () => {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/AgentLead" element={<AgentLeadsList />} />
                 <Route path="/Agentform" element={<AgentLeadForm />} />
-                {/* <Route path="/all-leads" element={<Leads />} /> */}
-
+                <Route path="/excel" element={<Leads />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </div>
