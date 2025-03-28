@@ -16,44 +16,53 @@ function Showlead() {
 
   useEffect(() => {
     const fetchForms = () => {
-      const formsRef = ref(database, "forms");
-
-      onValue(formsRef, (snapshot) => {
+      const userUID = localStorage.getItem("firebaseUserUID");
+      if (!userUID) return;
+  
+      const userFormsRef = ref(database, `users/${userUID}/forms`);
+  
+      onValue(userFormsRef, (snapshot) => {
         if (snapshot.exists()) {
           const formsData = snapshot.val();
           const formEntries = Object.entries(formsData).map(([key, value]) => ({
             id: key,
             title: value.title || key,
           }));
-
+  
           setForms(formEntries);
           setSelectedForm(formEntries[0]?.id || null);
+        } else {
+          setForms([]);
+          setSelectedForm(null);
         }
       });
     };
-
+  
     fetchForms();
   }, []);
-
+  
   useEffect(() => {
     if (!selectedForm) return;
-
+  
     const fetchSubmissions = () => {
       setLoading(true);
-      const submissionsRef = ref(database, `forms/${selectedForm}/submissions`);
-
-      onValue(submissionsRef, (snapshot) => {
+      const userUID = localStorage.getItem("firebaseUserUID");
+      if (!userUID) return;
+  
+      const userSubmissionsRef = ref(database, `users/${userUID}/forms/${selectedForm}/submissions`);
+  
+      onValue(userSubmissionsRef, (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
           const firstEntry = Object.values(data)[0] || {};
           setTableHeaders([...Object.keys(firstEntry), "Status", "AI Action", "Actions"]);
-
+  
           const formattedData = Object.keys(data).map((key) => ({
             id: key,
             ...data[key],
             status: data[key].status || "Onprocess",
           }));
-
+  
           setTableData(formattedData);
           setFilteredData(formattedData);
         } else {
@@ -64,13 +73,16 @@ function Showlead() {
         setLoading(false);
       });
     };
-
+  
     fetchSubmissions();
   }, [selectedForm]);
-
+  
   // Handle status change
   const handleStatusChange = (rowId, newStatus) => {
-    const submissionRef = ref(database, `forms/${selectedForm}/submissions/${rowId}`);
+    const userUID = localStorage.getItem("firebaseUserUID");
+    if (!userUID) return;
+  
+    const submissionRef = ref(database, `users/${userUID}/forms/${selectedForm}/submissions/${rowId}`);
     update(submissionRef, { status: newStatus });
   };
 

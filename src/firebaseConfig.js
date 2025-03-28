@@ -26,4 +26,4 @@ const auth = getAuth(app);
 
 
 
-export { database,auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,onAuthStateChanged };
+export { database, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,onAuthStateChanged };

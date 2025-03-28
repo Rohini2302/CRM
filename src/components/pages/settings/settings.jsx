@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ref, get, push, update } from "firebase/database";
+import { set,ref, get, push, update } from "firebase/database";
 import { database } from "../../../firebaseConfig";
 import "./Settings.css";
 
@@ -13,9 +13,18 @@ const Settings = () => {
   useEffect(() => {
     const fetchForms = async () => {
       try {
-        const formRef = ref(database, "forms");
-        const snapshot = await get(formRef);
-
+        // Get current user's UID
+        const userUID = localStorage.getItem("firebaseUserUID");
+        
+        if (!userUID) {
+          console.log("No user logged in");
+          return;
+        }
+  
+        // Reference to the user's forms
+        const userFormsRef = ref(database, `users/${userUID}/forms`);
+        const snapshot = await get(userFormsRef);
+  
         if (snapshot.exists()) {
           const formData = snapshot.val();
           const formArray = Object.entries(formData).map(([key, value]) => ({
@@ -23,13 +32,18 @@ const Settings = () => {
             ...value
           }));
           setForms(formArray);
-          setSelectedForm(formArray[0]);
+          if (formArray.length > 0) {
+            setSelectedForm(formArray[0]);
+          }
+        } else {
+          setForms([]); // Set empty array if no forms exist
+          setSelectedForm(null);
         }
       } catch (error) {
         console.error("Error fetching forms:", error);
       }
     };
-
+  
     fetchForms();
   }, []);
 
@@ -89,12 +103,29 @@ const Settings = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedForm) return;
-
+  
     try {
-      const formSubmissionsRef = ref(database, `forms/${selectedForm.id}/submissions`);
-      const newEntryRef = push(formSubmissionsRef);
-
-      await update(newEntryRef, formData);
+      // Get current user's UID
+      const userUID = localStorage.getItem("firebaseUserUID");
+      if (!userUID) {
+        alert("You must be logged in to submit forms.");
+        return;
+      }
+  
+      // Create reference under user's forms and submissions
+      const userFormSubmissionsRef = ref(
+        database, 
+        `users/${userUID}/forms/${selectedForm.id}/submissions`
+      );
+      const newEntryRef = push(userFormSubmissionsRef);
+  
+      // Include additional metadata with the submission
+      await set(newEntryRef, {
+        ...formData,
+        submittedAt: new Date().toISOString(),
+        submittedBy: userUID
+      });
+  
       alert("Form submitted successfully!");
       setFormData({});
       setFilePreviews({});
@@ -103,7 +134,6 @@ const Settings = () => {
       alert("Failed to submit form. Please try again.");
     }
   };
-
   const renderFieldInput = (field) => {
     switch (field.type) {
       case "TextArea":

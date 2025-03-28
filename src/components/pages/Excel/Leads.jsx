@@ -16,19 +16,31 @@ const Leads = () => {
   const [actionType, setActionType] = useState(""); // "upload" or "export"
   const [fileName, setFileName] = useState(""); // Store file name before upload
 
-  // Fetch Excel files from Firebase and store them in state
   useEffect(() => {
-    const leadsRef = ref(database, "excelFiles");
-    onValue(leadsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const files = Object.keys(data).map((key) => ({ id: key, ...data[key] }));
-        setExcelFiles(files);
-        setSelectedFile(files[0]?.id || null);
-      }
-    });
+    const fetchExcelFiles = () => {
+      const userUID = localStorage.getItem("firebaseUserUID");
+      if (!userUID) return;
+  
+      const userLeadsRef = ref(database, `users/${userUID}/excelFiles`);
+      
+      onValue(userLeadsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const files = Object.keys(data).map((key) => ({ 
+            id: key, 
+            ...data[key] 
+          }));
+          setExcelFiles(files);
+          setSelectedFile(files[0]?.id || null);
+        } else {
+          setExcelFiles([]);
+          setSelectedFile(null);
+        }
+      });
+    };
+  
+    fetchExcelFiles();
   }, []);
-
   // Handle file selection and preview before upload
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -76,15 +88,31 @@ const Leads = () => {
     });
   };
 
-  // Handle file upload after preview confirmation
   const handleFileUpload = () => {
     if (!previewData.length || !fileName) return;
-
+  
+    // Get current user's UID
+    const userUID = localStorage.getItem("firebaseUserUID");
+    if (!userUID) {
+      Swal.fire("Error!", "You must be logged in to upload files", "error");
+      return;
+    }
+  
     setUploadLoading(true);
-    const newFileRef = push(ref(database, "excelFiles"));
-
-    set(newFileRef, { name: fileName, data: previewData })
-      .then(() => Swal.fire("Success!", "Excel file uploaded successfully", "success"))
+    
+    // Create reference under user's excelFiles node
+    const userExcelFilesRef = ref(database, `users/${userUID}/excelFiles`);
+    const newFileRef = push(userExcelFilesRef);
+  
+    set(newFileRef, { 
+      name: fileName, 
+      data: previewData,
+      uploadedAt: new Date().toISOString(), // Add timestamp
+      uploadedBy: userUID // Optional: track who uploaded it
+    })
+      .then(() => {
+        Swal.fire("Success!", "Excel file uploaded successfully", "success");
+      })
       .catch((error) => {
         console.error("Upload Error:", error);
         Swal.fire("Error!", "Failed to upload Excel file", "error");
@@ -96,7 +124,6 @@ const Leads = () => {
         setFileName("");
       });
   };
-
   // Preview selected file before export
   const handleExportPreview = () => {
     const file = excelFiles.find((f) => f.id === selectedFile);

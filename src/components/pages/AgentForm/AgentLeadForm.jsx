@@ -1,18 +1,20 @@
 import { useState } from "react";
+import { ref, push, set } from "firebase/database";
+import { database } from "../../../firebaseConfig";
 import "./AgentLeadForm.css";
 
 const AgentLeadForm = () => {
   const [formData, setFormData] = useState({
-    Id: "",
-    Name: "",
-    Email: "",
-    Password: "",
-    LeadStatus: "",
-    AssignedLeads: "",
+    name: "",
+    email: "",
+    password: "",
+    leadStatus: "Active",
+    assignedLeads: "",
   });
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const userUID = localStorage.getItem("firebaseUserUID");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,32 +23,41 @@ const AgentLeadForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("http://localhost:5000/api/saveAgentLead", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    if (!userUID) {
+      setErrorMessage("User not authenticated");
+      return;
+    }
 
-      if (!response.ok) {
-        throw new Error("Failed to submit agent lead.");
-      }
+    try {
+      // Create a reference to the agent leads node for the current user
+      const agentLeadsRef = ref(database, `users/${userUID}/agentLeads`);
+      
+      // Generate a new push ID for the lead
+      const newLeadRef = push(agentLeadsRef);
+      
+      // Prepare lead data with timestamp
+      const leadData = {
+        ...formData,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+
+      // Save to Firebase
+      await set(newLeadRef, leadData);
 
       setSuccessMessage("Agent lead saved successfully!");
       setErrorMessage("");
       setFormData({
-        Id: "",
-        Name: "",
-        Email: "",
-        Password: "",
-        LeadStatus: "",
-        AssignedLeads: "",
+        name: "",
+        email: "",
+        password: "",
+        leadStatus: "Active",
+        assignedLeads: "",
       });
     } catch (error) {
+      console.error("Error saving agent lead:", error);
       setSuccessMessage("");
-      setErrorMessage(error.message);
+      setErrorMessage("Failed to save agent lead. Please try again.");
     }
   };
 
@@ -61,21 +72,9 @@ const AgentLeadForm = () => {
           <div className="agent-input-group">
             <input
               type="text"
-              name="Id"
-              placeholder="Id"
-              value={formData.Id}
-              onChange={handleChange}
-              className="agent-input-field"
-              required
-            />
-          </div>
-
-          <div className="agent-input-group">
-            <input
-              type="text"
-              name="Name"
+              name="name"
               placeholder="Name"
-              value={formData.Name}
+              value={formData.name}
               onChange={handleChange}
               className="agent-input-field"
               required
@@ -84,19 +83,19 @@ const AgentLeadForm = () => {
 
           <div className="agent-input-row">
             <input
-              type="text"
-              name="Email"
+              type="email"
+              name="email"
               placeholder="Email"
-              value={formData.Email}
+              value={formData.email}
               onChange={handleChange}
               className="agent-input-field"
               required
             />
             <input
-              type="text"
-              name="Password"
+              type="password"
+              name="password"
               placeholder="Password"
-              value={formData.Password}
+              value={formData.password}
               onChange={handleChange}
               className="agent-input-field"
               required
@@ -106,30 +105,33 @@ const AgentLeadForm = () => {
           {/* Dropdown for Lead Status */}
           <div className="agent-input-group">
             <select
-              name="LeadStatus"
-              value={formData.LeadStatus}
+              name="leadStatus"
+              value={formData.leadStatus}
               onChange={handleChange}
               className="agent-select-field"
               required
             >
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
+              <option value="Pending">Pending</option>
             </select>
           </div>
 
           <div className="agent-input-group">
             <input
               type="text"
-              name="AssignedLeads"
+              name="assignedLeads"
               placeholder="Assigned Leads"
-              value={formData.AssignedLeads}
+              value={formData.assignedLeads}
               onChange={handleChange}
               className="agent-input-field"
               required
             />
           </div>
 
-          <button type="submit" className="agent-submit-button">Submit</button>
+          <button type="submit" className="agent-submit-button">
+            Submit
+          </button>
         </form>
       </div>
 
@@ -138,7 +140,9 @@ const AgentLeadForm = () => {
         <h3 className="agent-preview-heading">Agent Preview</h3>
         {Object.entries(formData).map(([key, value]) => (
           <p className="agent-preview-item" key={key}>
-            <strong className="agent-preview-label">{key.charAt(0).toUpperCase() + key.slice(1)}:</strong>
+            <strong className="agent-preview-label">
+              {key.charAt(0).toUpperCase() + key.slice(1)}:
+            </strong>
             <span className="agent-preview-value">{value}</span>
           </p>
         ))}

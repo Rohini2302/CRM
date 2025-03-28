@@ -132,15 +132,30 @@ const Builder = () => {
       )
     );
   };
-
   const saveFormToFirebase = () => {
+    // Get the current user's UID from localStorage
+    const userUID = localStorage.getItem("firebaseUserUID");
+    
+    if (!userUID) {
+      alert("You must be logged in to save forms.");
+      return;
+    }
+  
     if (!formTitle.trim()) {
       alert("Please enter a form title.");
       return;
     }
-
-    const formRef = push(ref(database, "forms"));
-    set(formRef, { title: formTitle, fields: formFields })
+  
+    // Create reference under the user's forms node
+    const userFormsRef = ref(database, `users/${userUID}/forms`);
+    const newFormRef = push(userFormsRef);
+    
+    set(newFormRef, { 
+      title: formTitle, 
+      fields: formFields,
+      createdAt: new Date().toISOString() // Keep timestamp
+      // Removed submittedBy field
+    })
       .then(() => {
         alert("Form saved successfully!");
         setFormFields([]);
@@ -148,9 +163,9 @@ const Builder = () => {
       })
       .catch((error) => {
         console.error("Error saving form:", error);
+        alert("Failed to save form. Please try again.");
       });
   };
-
   const renderFieldInput = (field) => {
     switch (field.type) {
       case "TextArea":

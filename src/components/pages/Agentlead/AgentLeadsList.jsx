@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { ref, onValue } from "firebase/database";
+import { database } from "../../../firebaseConfig";
 import "./AgentLeadsList.css";
 
 const AgentLeadsList = () => {
@@ -7,54 +8,52 @@ const AgentLeadsList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterBy, setFilterBy] = useState("all");
   const [filteredLeads, setFilteredLeads] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const userUID = localStorage.getItem("firebaseUserUID");
 
   useEffect(() => {
-    const fetchAgentLeads = async () => {
-      const email = localStorage.getItem("userEmail");
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/api/getAgentLeads?email=${email}`
-        );
-        setAgentLeads(response.data);
-        setFilteredLeads(response.data);
-      } catch (error) {
-        console.error("Error fetching agent leads:", error);
-      }
+    if (!userUID) return;
+
+    const fetchAgentLeads = () => {
+      setLoading(true);
+      const agentLeadsRef = ref(database, `users/${userUID}/agentLeads`);
+      
+      const unsubscribe = onValue(agentLeadsRef, (snapshot) => {
+        const leadsData = snapshot.val() || {};
+        
+        // Convert Firebase object to array
+        const leadsArray = Object.keys(leadsData).map(key => ({
+          id: key,
+          ...leadsData[key]
+        }));
+
+        setAgentLeads(leadsArray);
+        setFilteredLeads(leadsArray);
+        setLoading(false);
+      });
+
+      return () => unsubscribe();
     };
 
     fetchAgentLeads();
+  }, [userUID]);
 
-    // Adding 40 dummy agent leads for testing
-    const dummyData = Array.from({ length: 40 }, (_, index) => ({
-      id: index + 1,
-      name: `Agent ${index + 1}`,
-      email: `agent${index + 1}@crm.com`,
-      password: "*****",
-      leadStatus: index % 2 === 0 ? "Active" : "Inactive",
-      assignedLeads: `Lead ${index % 10}`,
-    }));
-
-    setAgentLeads(dummyData);
-    setFilteredLeads(dummyData);
-  }, []);
-
-  // Automatically filter when searchTerm or filterBy changes
   useEffect(() => {
     if (searchTerm.trim() === "") {
       setFilteredLeads(agentLeads);
     } else {
+      const term = searchTerm.toLowerCase();
       const newFilteredLeads = agentLeads.filter((lead) => {
-        const term = searchTerm.toLowerCase();
         if (filterBy === "all") {
           return (
-            lead.name.toLowerCase().includes(term) ||
-            lead.email.toLowerCase().includes(term) ||
-            lead.assignedLeads.toLowerCase().includes(term) ||
-            lead.leadStatus.toLowerCase().includes(term)
+            lead.name?.toLowerCase().includes(term) ||
+            lead.email?.toLowerCase().includes(term) ||
+            lead.assignedLeads?.toLowerCase().includes(term) ||
+            lead.leadStatus?.toLowerCase().includes(term)
           );
-        } else {
-          return lead[filterBy].toLowerCase().includes(term);
         }
+        return lead[filterBy]?.toLowerCase().includes(term);
       });
       setFilteredLeads(newFilteredLeads);
     }
@@ -64,11 +63,14 @@ const AgentLeadsList = () => {
     setSearchTerm("");
   };
 
+  if (loading) {
+    return <div className="loading">Loading agent leads...</div>;
+  }
+
   return (
     <div className="agent-leads-list">
       <h1 className="Agent-Title">Agent Leads List</h1>
 
-      {/* Search and Filter Controls */}
       <div className="search-filter-container">
         <select
           value={filterBy}
@@ -90,21 +92,17 @@ const AgentLeadsList = () => {
           className="search-bar"
         />
 
-        {/* Show Reset Button only when filtered */}
         {searchTerm && (
           <button className="reset-btn" onClick={handleReset}>
-            Show List
+            Show All
           </button>
         )}
       </div>
 
-      {/* 🟢 Table Wrapper for Scrolling */}
-      
-      {/* <div className="table-container">
+      <div className="table-container">
         <table>
-        <thead>
+          <thead>
             <tr>
-              <th>ID</th>
               <th>Name</th>
               <th>Email</th>
               <th>Password</th>
@@ -112,63 +110,23 @@ const AgentLeadsList = () => {
               <th>Status</th>
             </tr>
           </thead>
-        </table>
-        
-        <table> */}
-          {/* <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Password</th>
-              <th>Assigned Leads</th>
-              <th>Status</th>
-            </tr>
-          </thead> */}
-          {/* <tbody>
+          <tbody>
             {filteredLeads.map((lead) => (
               <tr key={lead.id}>
-                <td>{lead.id}</td>
                 <td>{lead.name}</td>
                 <td>{lead.email}</td>
                 <td>{lead.password}</td>
                 <td>{lead.assignedLeads}</td>
-                <td>{lead.leadStatus}</td>
+                <td>
+                  <span className={`status-badge ${lead.leadStatus.toLowerCase()}`}>
+                    {lead.leadStatus}
+                  </span>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div> */}
-
-<div className="table-container">
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th>Assigned Leads</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {filteredLeads.map((lead) => (
-        <tr key={lead.id}>
-          <td>{lead.id}</td>
-          <td>{lead.name}</td>
-          <td>{lead.email}</td>
-          <td>{lead.password}</td>
-          <td>{lead.assignedLeads}</td>
-          <td>{lead.leadStatus}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
-
-
-      
+      </div>
     </div>
   );
 };
