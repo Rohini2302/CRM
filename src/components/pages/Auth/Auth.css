@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url("/public//login2.png") no-repeat center center/cover;
+    background: url("/public/login2.png") no-repeat center center/cover;
     position: relative;
     transition: 0.5s ease-in-out;
 }

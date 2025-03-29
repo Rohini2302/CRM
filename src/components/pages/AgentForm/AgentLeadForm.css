@@ -30,7 +30,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     box-sizing: border-box;
 }
 
@@ -166,7 +166,7 @@
 
 @media screen and (max-width: 480px) {
     .agent-form-container {
-        padding: 20px;
+        padding: 30px;
     }
 
     .agent-input-field,

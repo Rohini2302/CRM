@@ -30,11 +30,11 @@ const Settings = () => {
           const formArray = Object.entries(formData).map(([key, value]) => ({
             id: key,
             ...value
-          }));
+          })).reverse();
           setForms(formArray);
-          if (formArray.length > 0) {
-            setSelectedForm(formArray[0]);
-          }
+if (formArray.length > 0) {
+  setSelectedForm(formArray[0]); // Select the latest form
+}
         } else {
           setForms([]); // Set empty array if no forms exist
           setSelectedForm(null);

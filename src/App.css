@@ -10,6 +10,7 @@
   display: flex;
   min-height: 100vh;
   position: relative;
+ 
 }
 
 /* Sidebar */
@@ -52,6 +53,7 @@
   min-height: calc(100vh- 60px); /* Full height minus topbar */
   transition: margin-left 0.3s ease;
   overflow: auto; /* Add scroll if content overflows */
+  margin-top: 40px;
 }
 
 /* Content Area - Add these guidelines */
@@ -107,6 +109,7 @@
   .main-content {
     margin-left: 200px;
     width: calc(100% - 200px);
+    margin-top: 60px;
   }
 }
 

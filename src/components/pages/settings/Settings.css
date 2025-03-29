@@ -8,6 +8,7 @@
 
 /* ===== Tabs Container (Chrome Tab Style) ===== */
 .tabs-container {
+  display: flex;
   position: fixed;
   top: 0;
   left: 60%;
@@ -30,6 +31,7 @@
   padding: 5px 10px;
   overflow-x: auto;
   white-space: nowrap;
+  border-bottom: 2px solid #ccc;
 }
 
 /* Individual Tab Styling */
@@ -44,6 +46,8 @@
   transition: all 0.3s ease-in-out;
   position: relative;
   min-width: 100px;
+  border-bottom: 2px solid transparent;
+  scrollbar-width: thin;
 }
 
 /* Active Tab */
